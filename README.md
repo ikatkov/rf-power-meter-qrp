@@ -22,6 +22,7 @@ A microcontroller-based 6W RF power meter designed for Ham QRP.
 ## Hardware
 
 Schematic - [PDF](schematic.pdf)
+
 <img src="schematic.png" width=500px/>
 
 
