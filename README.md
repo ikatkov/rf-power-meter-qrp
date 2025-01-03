@@ -1,6 +1,9 @@
 # RF Power Meter QRP
 
-A microcontroller-based 6W RF power meter designed for Ham QRP.
+This microcontroller-based RF power meter is tailored for Ham QRP, capable of measuring up to 6W. It offers power readings in two formats:
+
+1. Milliwatts (mW) – displayed as a 4-digit value without decimals.
+1. Decibel-milliwatts (dBm) – shown with one decimal place. Since the display lacks a dot, the reading appears as a 3-digit number (e.g., "123" represents 12.3 dBm).
 
 ## Features
 
@@ -60,7 +63,7 @@ Schematic - [PDF](schematic.pdf)
 - Max power level: 6.3W (38dBm) in short burst, 4W continious
 - Not temperature compensated
 - Internal 500mAh battery, USB charged
-- When powered off, 200uA current consumption. Use storage mode switch to disconnect internal battery.
+- When powered off, 200uA current consumption. You can use storage mode switch to disconnect internal battery competely.
 
 ## License
 
