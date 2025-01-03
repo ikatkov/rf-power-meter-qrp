@@ -1,69 +1,65 @@
 # RF Power Meter QRP
 
-A microcontroller-based RF power meter designed for QRP (low power) amateur radio applications. Features automatic frequency band selection, peak power hold, and efficient power management.
+A microcontroller-based 6W RF power meter designed for Ham QRP.
 
 ## Features
 
-- Power measurements in dBm and Watts
-- Support for multiple frequency bands (3.7-50MHz)
+- Up to 6W RF power meter, assumes sin wave
 - Peak power hold mode
-- Auto power-off after 5 minutes
-- Battery voltage monitoring
-- 4-digit LED display
-- Polynomial curve fitting for accurate measurements
-- Non-volatile storage of settings
+- Compensated frequency resonse, less that 1.03 SWR 2-50MHz
+- Power measurements in dBm and Watts on 4-digit LED display
+- Support for multiple Ham frequency bands (3.7-50MHz)
+- Calibrated and uses polynomial curve fitting for accurate measurements. Manually set frequency band in settings.
+- Battery voltage monitoring and auto power-off after 5 minutes of inactivity. Press any button to reset.
+- Vent holes on plastic enclosure have filters made of surgical mask fiber (anti dust for field operation)
 
-## Hardware Requirements
+## 2MHz - 50MHz
+<img src="swr-2MHz-50MHz.png" width=500px/>
+
+## 2MHz - 175MHz
+<img src="swr-2MHz-175MHz.png" width=500px/>
+
+## Hardware
+
+Schematic - [PDF](schematic.pdf)
+<img src="schematic.png" width=500px/>
+
+
+<img src="pcb-front.png" width=500px/>
+<img src="pcb-back.png" width=500px/>
+<img src="pcb.png" width=500px/>
+
 
 - Arduino-compatible microcontroller
-- 4-digit LED display
-- Two control buttons (Menu and OK)
-- RF detector circuit
-- Voltage divider network (11kΩ/2.5kΩ)
-- Power latch circuit
+- 4-digit+MHz symbol LED display (salavged from a car FM transmitter)
+- RF didode detector circuit
+- Power latch circuit for MCU driven turn off
 - Buzzer for audio feedback
-- External voltage reference (4.762V)
+- External precision voltage reference 
 
-## Dependencies
 
-- TimerOne library
-- OneButton library
-- EEPROM library (built-in)
-- FmDisplay library (custom)
-
-## Installation
-
-1. Clone this repository
-2. Install required libraries via Arduino Library Manager
-3. Connect hardware according to pin definitions:
-   - CS Pin: 11
-   - Clock Pin: 12
-   - Data Pin: 10
-   - Menu Button: Pin 8
-   - OK Button: Pin 9
-   - Power Latch: Pin 7
-   - RF Peak Input: A2
-   - Battery Monitor: A0
+<img src="enclosure.png" width=500px/>
 
 ## Usage
 
-- **Power On**: Press and hold the OK button (lower) to power on. Device starts with battery voltage display followed by selected frequency band. 
-- **Menu Button**:
+- **To Power On**: Flip the main (storage mode) switch to ON. Press and hold the OK button (lower) to power on. Device starts with battery voltage displayed, followed by the currently selected frequency band. 
+
+- **Info Button** (top):
   - Single click: Toggle between dBm/Watts
-  - Double click: Enter measurement mode selection - continious (default) vs hold peak mode. Use the same button to switch, use OK button to confirm.
-  - Long press: Enter frequency band selection. Use the same button to switch, use OK button to confirm.
-- **OK Button**:
-  - Single click: In main screen - zero calibration, in menu screens confirm selectionand exit to main screen.
-  - Long press (2s): Power off
-- Auto shutdown triggers after 5 minutes of inactivity
+  - Double click: Enter measurement mode selection. Use the same button to switch between modes **continious** (default) vs **hold peak** mode. Use OK button to confirm when done.
+  - Long press: Enter frequency band selection. Use the same button to cycle through bands.Use OK button to confirm when done.
+- **OK Button** (bottom):
+  - Single click: When in main screen - resets to zero, in menu screens confirms selection and exit to the main screen.
+  - Long press (2s): Powers off
 
 ## Technical Specifications
 
-- Frequency Bands: 3.7MHz, 7.2MHz, 14.2MHz, 18MHz, 21MHz, 24MHz, 28MHz, 50MHz 
-- Reference Voltage: 4.762V
-- Diode Drop Compensation: 0.42V
-- ADC Correction Factor: 0.1988/0.1930
-- Measurement display updates every 400ms
+- Calibrated for Ham frequency bands: 3.7MHz, 7.2MHz, 14.2MHz, 18MHz, 21MHz, 24MHz, 28MHz, 50MHz 
+- Min power level: 2mW (3dBm)
+- Max power level: 6.3W (38dBm) in short burst, 4W continious
+- Not temperature compensated
+- Internal 500mAh battery, USB charged
+- When powered off, 200uA current consumption. Use storage mode switch to disconnect internal battery.
 
 ## License
 
