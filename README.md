@@ -4,6 +4,7 @@ This microcontroller-based RF power meter is tailored for Ham QRP, capable of me
 
 1. Milliwatts (mW) – displayed as a 4-digit value without decimals.
 1. Decibel-milliwatts (dBm) – shown with one decimal place. Since the display lacks a dot, the reading appears as a 3-digit number (e.g., "123" represents 12.3 dBm).
+1. Accuracy 0.4% @ 6W (+-25mW), 5% @ 10mW (+-0.5mW)
 
 ## Features
 
@@ -59,6 +60,7 @@ Schematic - [PDF](schematic.pdf)
 ## Technical Specifications
 
 - Calibrated for Ham frequency bands: 3.7MHz, 7.2MHz, 14.2MHz, 18MHz, 21MHz, 24MHz, 28MHz, 50MHz 
+- Accuracy 0.4% @ 6W (+-25mW), 5% @ 10mW (+-0.5mW)
 - Min power level: 2mW (3dBm)
 - Max power level: 6.3W (38dBm) in short burst, 4W continious
 - Not temperature compensated
