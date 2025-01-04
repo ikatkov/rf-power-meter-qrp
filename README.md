@@ -93,53 +93,53 @@ The Salvaged FM LCD screen has two buttons, so I had to fallback to "click" vs "
 The screen itself has 4 digits and one dot. The dot is connected to "MHz" symbol. They always lit together.
 Although I needed the dot for measurements, for example for dBms, I decided that showing "12.3 MHz" and claiming that this is "12.3 dBm" is rather akward. So the reading appears as a 3-digit number e.g. "123" represents 12.3 dBm. Watts reading always appear as 4 digit numbers with leading zeros as mW, "0123" reading represents 123mW. The dot and the "MHz" symbol come very handy when displaying frequency band. This setting is used to select which callibration curve to apply to the actual measurement.
 
-Here is transition diagram.
+Here is transition diagram:
 
 ```
-                 ┌─────────────────┐    OK button       ┌─────────────┐
-                 │  Cycle through  ├────────────────────►  Saves to   │
-                 │    Ham bands    │      click         │    NVRAM    │
-                 └─────────────────┘                    └───────┬─────┘
-                           ▲                                    │      
-             info button   │                                    │      
-               click       │                                    │      
-                 ┌─────────┴───────────┐                        │      
-                 │                     │                        │      
-                 │   Frequency band    │                        │      
-        ┌───────►│     selection       │◄─────┐                 │      
-        │        │      screen         │      │                 │      
-        │        │                     │      │                 │      
-info button      └─────────────────────┘   info button          │      
-long press                                 long press           │      
-        │                                     │                 │      
-        │                                     │                 │      
-        │                                     │                 │      
-        │                                     │                 │      
-        │                                     │                 │      
-   ┌────┴──────────┐              ┌───────────┴───┐             │      
-   │               │  info button │               │             │      
-   │  Main screen  ├─────────────►│  Main screen  │◄────────────┘      
-   │    mWatts     │◄─────────────┤     dBm       │                    
-   │               │   click      │               │                    
-   └──────────┬────┘              └──────┬────▲───┘                    
-              │                          │    │                        
-      info button                info button  │                        
-      double click               double click │     When in the        
-              │                          │    │    "Hold Peak mode"    
-              │                          │    │     display blinks     
-              │    ┌──────────────┐      │    │                        
-              │    │  Continious  │      │    │                        
-              └────►     vs       ◄──────┘    │OK button               
-                   │  Hold peak   │           │ click                  
-                   └───────┬──────┘           │                        
-                           │                  │                        
-                      info button             │                        
-                        click                 │                        
-                           │                  │                        
-                   ┌───────▼─────────┐        │                        
-                   │  Cycle through  ├────────┘                        
-                   │    two modes    │                                 
-                   └─────────────────┘                                 
+                 ┌───────────────┐                   ┌─────────────┐
+                 │ Cycle through ├───OK─button───────►  Saves to   │
+                 │   Ham bands   │    click          │    NVRAM    │
+                 └──────▲────────┘                   └───────┬─────┘
+                        │                                    │      
+                   info button                               │      
+                     click                                   │      
+                        │                                    │      
+                 ┌──────┴────────┐                           │      
+                 │Frequency band │                           │      
+                 │  selection    │                           │      
+                 │   screen      │                           │      
+                 └───────────────┘                           │      
+                       ▲ ▲                                   │      
+                       │ │                                   │      
+                       │ │                                   │      
+                    info button                              │      
+        ┌───────────long press─────────┐                     │      
+        │                              │                     │      
+        │                              │                     │      
+        │                              │                     │      
+┌───────┴───────┐              ┌───────┴───────┐             │      
+│  Main screen  ├─info─button─►│  Main screen  │◄────────────┘      
+│    mWatts     │◄──click──────┤     dBm       │◄────────────┐      
+└───────┬───────┘              └───────┬───────┘             │      
+        │                              │                     │      
+        │                              │                     │      
+        │                              │                     │      
+        └──────────info button─────────┘                     │      
+                   double│click                              │      
+                      │  │                                   │      
+                ┌─────▼──▼─────┐         When in the         │      
+                │  Continious  │        "Hold Peak mode"     │      
+                │     vs       │         display blinks      │      
+                │  Hold peak   │                             │      
+                └───────┬──────┘                             │      
+                        │                                    │      
+                   info button                               │      
+                     click                                   │      
+                        │                                    │      
+                ┌───────▼─────────┐                          │      
+                │  Cycle through  ├────OK─button─────────────┘      
+                │    two modes    │     click                       
+                └─────────────────┘                                                                                  
 ```                   
 
 In any mode, long press on the "OK" button turns power off.
