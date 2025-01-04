@@ -67,6 +67,83 @@ Schematic - [PDF](schematic.pdf)
 - Internal 500mAh battery, USB charged
 - When powered off, 200uA current consumption. You can use storage mode switch to disconnect internal battery competely.
 
+
+## Notes
+
+Since it's a diode detector the only thing it can measure is peak voltage. Code inside assumes that input RF signal is a pure sine wave to make RF power calculations. 
+
+### Frequency compensation
+
+Leads and connector and other stray inductance skew 50Ω impedance, one good way to compensate is to add adjustanble shunt capacitance. Use VNA to adjust after pcb assembly.
+
+<img src="ltspice-freq-compensation.png" width=500/>
+[ltspice file](ltspice/qrt-rf-power-meter-shunt-cap-compensation.asc)
+
+### DC supply filtering
+
+Internal battery is nominal 3.7V, but the salvaged LCD screen needs 5V. There is boost DC-DC converter that gives 200mV ripple. There are two filters - one right after the converter, this goes to MCU. There is another one just before reference voltage goes to Aref pin.
+
+<img src="ltspice-ripple-filter.png" width=500/>
+[ltspice file](ltspice/power-ripple-filter.asc)
+
+### Interface
+
+The Salvaged FM LCD screen has two buttons, so I had to fallback to "click" vs "double-click" vs "long click" technique. The same button function differently depending in which mode device currently is - "main screen" vs "settings"
+
+The screen itself has 4 digits and one dot. The dot is connected to "MHz" symbol. They always lit together.
+Although I needed the dot for measurements, for example for dBms, I decided that showing "12.3 MHz" and claiming that this is "12.3 dBm" is rather akward. So the reading appears as a 3-digit number e.g. "123" represents 12.3 dBm. Watts reading always appear as 4 digit numbers with leading zeros as mW, "0123" reading represents 123mW. The dot and the "MHz" symbol come very handy when displaying frequency band. This setting is used to select which callibration curve to apply to the actual measurement.
+
+Here is transition diagram.
+
+```
+                 ┌─────────────────┐    OK button       ┌─────────────┐
+                 │  Cycle through  ├────────────────────►  Saves to   │
+                 │    Ham bands    │      click         │    NVRAM    │
+                 └─────────────────┘                    └───────┬─────┘
+                           ▲                                    │      
+             info button   │                                    │      
+               click       │                                    │      
+                 ┌─────────┴───────────┐                        │      
+                 │                     │                        │      
+                 │   Frequency band    │                        │      
+        ┌───────►│     selection       │◄─────┐                 │      
+        │        │      screen         │      │                 │      
+        │        │                     │      │                 │      
+info button      └─────────────────────┘   info button          │      
+long press                                 long press           │      
+        │                                     │                 │      
+        │                                     │                 │      
+        │                                     │                 │      
+        │                                     │                 │      
+        │                                     │                 │      
+   ┌────┴──────────┐              ┌───────────┴───┐             │      
+   │               │  info button │               │             │      
+   │  Main screen  ├─────────────►│  Main screen  │◄────────────┘      
+   │    mWatts     │◄─────────────┤     dBm       │                    
+   │               │   click      │               │                    
+   └──────────┬────┘              └──────┬────▲───┘                    
+              │                          │    │                        
+      info button                info button  │                        
+      double click               double click │     When in the        
+              │                          │    │    "Hold Peak mode"    
+              │                          │    │     display blinks     
+              │    ┌──────────────┐      │    │                        
+              │    │  Continious  │      │    │                        
+              └────►     vs       ◄──────┘    │OK button               
+                   │  Hold peak   │           │ click                  
+                   └───────┬──────┘           │                        
+                           │                  │                        
+                      info button             │                        
+                        click                 │                        
+                           │                  │                        
+                   ┌───────▼─────────┐        │                        
+                   │  Cycle through  ├────────┘                        
+                   │    two modes    │                                 
+                   └─────────────────┘                                 
+```                   
+
+In any mode, long press on the "OK" button turns power off.
+
 ## License
 
 [MIT License](LICENSE)
